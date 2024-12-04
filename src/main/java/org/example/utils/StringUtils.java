@@ -49,4 +49,9 @@ public class StringUtils
 
     return true;
   }
+
+  public static List<String> splitIntoLines(String input)
+  {
+    return Arrays.stream(input.split("\n")).toList();
+  }
 }
