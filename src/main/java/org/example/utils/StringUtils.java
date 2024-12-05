@@ -52,6 +52,6 @@ public class StringUtils
 
   public static List<String> splitIntoLines(String input)
   {
-    return Arrays.stream(input.split("\n")).toList();
+    return Arrays.stream(input.split("\n")).map(v -> v.replace("\r", "")).toList();
   }
 }
