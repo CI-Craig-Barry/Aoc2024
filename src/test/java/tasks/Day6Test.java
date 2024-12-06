@@ -47,6 +47,6 @@ public class Day6Test
   public void task2()
   {
     List<String> lines = FileUtils.getLines("/day6_task.txt");
-    Assertions.assertEquals(0, Day6.task2(lines));
+    Assertions.assertEquals(1740, Day6.task2(lines));
   }
 }

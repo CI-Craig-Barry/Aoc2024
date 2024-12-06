@@ -13,10 +13,11 @@ public class Day6
 
     while(guard.move())
     {
-//      map.drawMap(
-//        guard.visited,
-//        new int[] {guard.posRow, guard.posCol}
-//      );
+      //Draw the map on every movement for fun
+      map.drawMap(
+        guard.visited,
+        new int[] {guard.posRow, guard.posCol}
+      );
     }
 
     return guard.numSpacesVisited();
@@ -25,11 +26,8 @@ public class Day6
   public static int task2(List<String> lines)
   {
     Map map = makeMap(lines);
-    Guard initialGuard = new Guard(map);
     int numObstaclePosition = 0;
-    int numPositionsChecked = 0;
-
-    //Run the guard through initially
+    boolean[][] potentialObstaclePlace = findPotentialObstaclePlacements(map);
 
     //Iterate over every potentional place to put an obstacle
     for(int i = 0; i < map.height; i++)
@@ -43,7 +41,7 @@ public class Day6
           continue;
         }
         //Can contain a placed obstacle
-        else
+        else if(potentialObstaclePlace[i][j])
         {
           //Remake the guard every position to reset visited positions
           Guard guard = new Guard(map);
@@ -56,7 +54,7 @@ public class Day6
             //If guard stuck in a loop, draw the map & count the obstacle
             if(guard.stuckInLoop)
             {
-              //Draw map for debugging
+              //Draw map for fun
               map.drawMap(
                 guard.visited,
                 new int[] {guard.posRow, guard.posCol}
@@ -66,8 +64,6 @@ public class Day6
               break;
             }
           }
-
-          System.out.println("Num positions checked: " + (++numPositionsChecked));
         }
       }
     }
@@ -107,6 +103,15 @@ public class Day6
     return map;
   }
 
+  //Potential places are just anywhere the guard visited in his initial path
+  private static boolean[][] findPotentialObstaclePlacements(Map map)
+  {
+    Guard guard = new Guard(map);
+    while(guard.move()) {}
+
+    return guard.visited;
+  }
+
   private static class Guard
   {
     private Guard(Map map)
@@ -115,6 +120,7 @@ public class Day6
 
       this.posCol = map.initialGuardCol;
       this.posRow = map.initialGuardRow;
+      this.prevPos = new int[]{posCol, posRow};
 
       this.visited = new boolean[map.height][map.width];
       this.visited[map.initialGuardRow][map.initialGuardCol] = true;
@@ -126,6 +132,9 @@ public class Day6
     // Return false if guard leaves the map
     private boolean move()
     {
+      prevPos = new int[]{posCol, posRow};
+//      turned = false;
+
       int[] nextPos;
       //Keep turning right until our next position is free
       do
@@ -134,6 +143,7 @@ public class Day6
 
         if(map.isObstacle(nextPos[0], nextPos[1]))
         {
+//          turned = true;
           turnRight();
         }
         else
@@ -173,6 +183,11 @@ public class Day6
           posRow + rowDirection,
           posCol + colDirection
         };
+    }
+
+    private int[] getPrevPos()
+    {
+      return prevPos;
     }
 
     private long hashPosition()
@@ -222,6 +237,7 @@ public class Day6
 
     private boolean stuckInLoop = false;
 
+    private int[] prevPos;
     private int posRow;
     private int posCol;
 
