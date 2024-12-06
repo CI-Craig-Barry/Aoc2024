@@ -65,7 +65,7 @@ public class TopologicalSorter
 
       if (idx == -1)
       {
-        //If this dependencies is not in the vertices input, simply ignore it
+        //If this dependency is not in the vertices input, simply ignore it
         continue;
       }
 
@@ -75,10 +75,7 @@ public class TopologicalSorter
       }
     }
 
-    if (item != null)
-    {
-      //Push current vertex to sorted which stores result
-      sorted.push(item);
-    }
+    //Push current vertex to sorted which stores result
+    sorted.push(item);
   }
 }

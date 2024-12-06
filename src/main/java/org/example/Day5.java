@@ -39,7 +39,6 @@ public class Day5
       if(!manualOrder.isOrderedCorrectly(dependencies))
       {
         List<Integer> orderedPages = manualOrder.orderPages(dependencies);
-        System.out.println(manualOrder.ordering + " becomes " + orderedPages);
 
         int middleNumber = orderedPages.get(orderedPages.size() / 2);
         result += middleNumber;
@@ -64,7 +63,6 @@ public class Day5
       assert tokens.length == 2;
 
       //Y depends on X
-      System.out.println(Arrays.toString(tokens));
       int x = Integer.parseInt(tokens[0]);
       int y = Integer.parseInt(tokens[1]);
 
