@@ -29,7 +29,7 @@ public class Day6
     int numObstaclePosition = 0;
     boolean[][] potentialObstaclePlace = findPotentialObstaclePlacements(map);
 
-    //Iterate over every potentional place to put an obstacle
+    //Iterate over every potential place to put an obstacle
     for(int i = 0; i < map.height; i++)
     {
       for(int j = 0; j < map.width; j++)
@@ -71,6 +71,7 @@ public class Day6
     return numObstaclePosition;
   }
 
+  //Construct map from string input
   private static Map makeMap(List<String> lines)
   {
     Map map = new Map();
@@ -120,7 +121,6 @@ public class Day6
 
       this.posCol = map.initialGuardCol;
       this.posRow = map.initialGuardRow;
-      this.prevPos = new int[]{posCol, posRow};
 
       this.visited = new boolean[map.height][map.width];
       this.visited[map.initialGuardRow][map.initialGuardCol] = true;
@@ -129,12 +129,10 @@ public class Day6
       this.visitedHashes.add(hashPosition());
     }
 
-    // Return false if guard leaves the map
+    // Return false if guard leaves the map, otherwise will move us
+    // one space in our current direction turning right at any obstacles
     private boolean move()
     {
-      prevPos = new int[]{posCol, posRow};
-//      turned = false;
-
       int[] nextPos;
       //Keep turning right until our next position is free
       do
@@ -143,7 +141,6 @@ public class Day6
 
         if(map.isObstacle(nextPos[0], nextPos[1]))
         {
-//          turned = true;
           turnRight();
         }
         else
@@ -176,6 +173,8 @@ public class Day6
       return inBounds;
     }
 
+    //Retrieve the next position (ignoring obstacles) if we move
+    //at our current direction
     private int[] getNextPos()
     {
       return new int[]
@@ -185,11 +184,7 @@ public class Day6
         };
     }
 
-    private int[] getPrevPos()
-    {
-      return prevPos;
-    }
-
+    //Create a unique hash on the given map for the current position & direction
     private long hashPosition()
     {
       //Should give the index of the position in a flat map
@@ -205,6 +200,7 @@ public class Day6
       return positionHash + directionHash;
     }
 
+    //Modify our direction to turn right, this does not move the guard
     private void turnRight()
     {
       int curColDirection = colDirection;
@@ -215,6 +211,7 @@ public class Day6
       colDirection = -curRowDirection;
     }
 
+    //Retrieve the number of unique spaces the guard has visited
     public int numSpacesVisited()
     {
       int count = 0;
@@ -233,11 +230,10 @@ public class Day6
     private final Map map;
     private boolean[][] visited;
 
-    private Set<Long> visitedHashes;
+    private final Set<Long> visitedHashes;
 
     private boolean stuckInLoop = false;
 
-    private int[] prevPos;
     private int posRow;
     private int posCol;
 
@@ -247,12 +243,14 @@ public class Day6
 
   private static class Map
   {
+    //Checks if a coordinate is within the bounds of the map
     public boolean isWithinBounds(int row, int col)
     {
       return row >= 0 && row < height &&
         col >= 0 && col < width;
     }
 
+    //Return true if coordinates are an obstacle (either placed or static)
     public boolean isObstacle(int row, int col)
     {
       if(!isWithinBounds(row, col))
@@ -264,6 +262,7 @@ public class Day6
         (placedObstacle != null && placedObstacle[0] == row && placedObstacle[1] == col);
     }
 
+    //Draw map for fun
     public void drawMap(boolean[][] visited, int[] guardPos)
     {
       StringBuilder builder = new StringBuilder();
