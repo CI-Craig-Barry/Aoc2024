@@ -39,13 +39,13 @@ public class Day7Test
   @Test
   public void task2Test()
   {
-    Assertions.assertEquals(11387, Day7.task1(TEST_INPUT_LINES));
+    Assertions.assertEquals(11387, Day7.task2(TEST_INPUT_LINES));
   }
 
   @Test
   public void task2()
   {
     List<String> lines = FileUtils.getLines("/day7_task.txt");
-    Assertions.assertEquals(162987117690649L, Day7.task1(lines));
+    Assertions.assertEquals(162987117690649L, Day7.task2(lines));
   }
 }

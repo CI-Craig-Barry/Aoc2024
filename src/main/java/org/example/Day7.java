@@ -8,13 +8,28 @@ public class Day7
 {
   public static long task1(List<String> inputs)
   {
+    return getResult(inputs, List.of(Operation.ADD, Operation.MULTIPLY));
+  }
+
+  public static long task2(List<String> inputs)
+  {
+    return getResult(inputs, List.of(Operation.ADD, Operation.MULTIPLY, Operation.COMBINE));
+  }
+
+  //Calculate the results given a set of possible operations
+  public static long getResult(List<String> inputs,
+                               List<Operation> operations)
+  {
     long result = 0;
 
     for (String input : inputs)
     {
+      //Build each calibration result
       CalibrationResult calibrationResult = makeCalibrationResult(input);
-      List<Equation> equations = generateEquations(calibrationResult.inputs);
+      //Build list of possible equations
+      List<Equation> equations = generateEquations(calibrationResult.inputs, operations);
 
+      //Find out if any of these equations match the result
       for (Equation equation : equations)
       {
         if(calibrationResult.result == equation.calculateResult())
@@ -30,11 +45,7 @@ public class Day7
     return result;
   }
 
-  public static int task2(List<String> inputs)
-  {
-    return 0;
-  }
-
+  //Construct a line in the inputs into a calibration result
   private static CalibrationResult makeCalibrationResult(String line)
   {
     CalibrationResult result = new CalibrationResult();
@@ -53,19 +64,21 @@ public class Day7
     return result;
   }
 
-  private static List<Equation> generateEquations(List<Integer> inputs)
+  //Generate equations given a list of possible operations
+  private static List<Equation> generateEquations(List<Integer> inputs, List<Operation> possibleOperations)
   {
     List<Equation> equations = new ArrayList<>();
     List<Operation> operations = new ArrayList<>();
 
-    generateEquationsRecur(equations, operations, inputs, 0);
+    generateEquationsRecur(equations, possibleOperations, operations, inputs, 0);
 
     return equations;
   }
 
-
+  //Recursively generate equations
   private static void generateEquationsRecur(
     List<Equation> equations,
+    List<Operation> possibleOperations,
     List<Operation> operations,
     List<Integer> inputs,
     int index
@@ -80,12 +93,12 @@ public class Day7
       return;
     }
 
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < possibleOperations.size(); i++)
     {
-      Operation operation = i == 0 ? Operation.ADD : (i == 1 ? Operation.MULTIPLY: Operation.COMBINE);
+      Operation operation = possibleOperations.get(i);
       List<Operation> newOperations = new ArrayList<>(operations);
       newOperations.add(operation);
-      generateEquationsRecur(equations, newOperations, inputs ,index + 1);
+      generateEquationsRecur(equations, possibleOperations, newOperations, inputs ,index + 1);
     }
   }
 
@@ -94,6 +107,7 @@ public class Day7
     private List<Integer> inputs;
     private List<Operation> operations;
 
+    //Calculate the result of the equation
     public long calculateResult()
     {
       assert operations.size() == inputs.size() - 1;
@@ -109,7 +123,7 @@ public class Day7
       return result;
     }
 
-    public static long doOperation(long input1, long input2, Operation operation)
+    private static long doOperation(long input1, long input2, Operation operation)
     {
       if(operation == Operation.ADD)
       {
@@ -126,6 +140,7 @@ public class Day7
       }
     }
 
+    //Debug print the equation with the expected result
     public void printEquation(long result)
     {
       StringBuilder builder = new StringBuilder();
@@ -152,12 +167,14 @@ public class Day7
     }
   }
 
+  //Possible operations for inputs
   private enum Operation {
     ADD,
     MULTIPLY,
     COMBINE
   }
 
+  //Wraps each line in a class of its properties
   private static class CalibrationResult
   {
     private String line;
