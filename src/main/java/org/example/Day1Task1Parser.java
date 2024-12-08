@@ -8,6 +8,19 @@ public class Day1Task1Parser
   public static int parseLines(List<String> lines)
   {
     ListProcessingResult result = new ListProcessingResult();
+    result.leftList = new ArrayList<>();
+    result.rightList = new ArrayList<>();
+
+    for (String line : lines)
+    {
+      String[] tokens = line.split(" ");
+
+      String leftToken = tokens[0];
+      String rightToken = tokens[tokens.length - 1];
+
+      result.leftList.add(Integer.parseInt(leftToken));
+      result.rightList.add(Integer.parseInt(rightToken));
+    }
 
     Collections.sort(result.leftList);
     Collections.sort(result.rightList);
