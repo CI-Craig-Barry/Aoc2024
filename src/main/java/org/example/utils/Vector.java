@@ -15,4 +15,30 @@ public class Vector
       p1.col - p2.col
     );
   }
+
+  public void rotateClockwise()
+  {
+    int curColDirection = col;
+    int curRowDirection = row;
+
+    //2d vector clockwise rotation
+    this.row = curColDirection;
+    this.col = -curRowDirection;
+  }
+
+  public void rotateCounterClockwise()
+  {
+    int curColDirection = col;
+    int curRowDirection = row;
+
+    //2d vector counter-clockwise rotation
+    this.row = -curColDirection;
+    this.col = curRowDirection;
+  }
+
+  public void reverse()
+  {
+    this.row = -this.row;
+    this.col = -this.col;
+  }
 }

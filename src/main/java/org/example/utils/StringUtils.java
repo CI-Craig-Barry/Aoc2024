@@ -10,6 +10,7 @@ public class StringUtils
 
   }
 
+  //Find all positions of a substring within an input (including overlaps)
   public static List<Integer> indexOfSubstrings(String input, String search)
   {
     char[] inputChars = input.toCharArray();
@@ -32,6 +33,7 @@ public class StringUtils
     return results;
   }
 
+  //Check if a substring is at a given position within an input string
   public static boolean isStringAtIndex(String input, int index, String search)
   {
     if(index + search.length() > input.length())
@@ -56,6 +58,7 @@ public class StringUtils
     return true;
   }
 
+  //Split an input by lines removing any newline characters
   public static List<String> splitIntoLines(String input)
   {
     return Arrays.stream(input.split("\n")).map(v -> v.replace("\r", "")).toList();
@@ -94,7 +97,7 @@ public class StringUtils
         {
           if(c == 'd')
           {
-            //Find possible - followed by any number of digits
+            //Find possible '-', followed by any number of digits
             regex.append("(\\-?\\d+)");
             captureGroups.add(Integer.class);
           }
@@ -159,6 +162,21 @@ public class StringUtils
     }
 
     throw new RuntimeException("bad pattern match for input '" + input + "' on pattern '" + patternString + "'");
+  }
+
+  //Parse a list of integers delimited by some delimiter
+  public static List<Integer> parseDelimitedIntegers(String input, String delimiter)
+  {
+    List<Integer> results = new ArrayList<>();
+    StringTokenizer tokenizer = new StringTokenizer(input.trim(), delimiter);
+
+    while(tokenizer.hasMoreTokens())
+    {
+      int integer = Integer.parseInt(tokenizer.nextToken());
+      results.add(integer);
+    }
+
+    return results;
   }
 
   private static final Map<String, Pattern> patternCache = new HashMap<>();
