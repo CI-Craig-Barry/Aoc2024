@@ -3,6 +3,7 @@ package tasks;
 import org.example.*;
 import org.example.utils.StringUtils;
 import org.junit.jupiter.api.*;
+import tasks.utils.PerformanceTester;
 import utils.FileUtils;
 
 import java.util.List;
@@ -47,5 +48,22 @@ public class Day7Test
   {
     List<String> lines = FileUtils.getLines("/day7_task.txt");
     Assertions.assertEquals(162_987_117_690_649L, Day7.task2(lines));
+  }
+
+  @Test
+  public void task2PerformanceTest()
+  {
+    List<String> lines = FileUtils.getLines("/day7_task.txt");
+    PerformanceTester tester = new PerformanceTester();
+    for(int i = 0; i < 100; i++)
+    {
+      tester.startTiming();
+      Assertions.assertEquals(162_987_117_690_649L, Day7.task2(lines));
+      tester.stopTiming();
+
+      System.out.println(i);
+    }
+
+    tester.printResults();
   }
 }

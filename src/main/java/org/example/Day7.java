@@ -36,7 +36,7 @@ public class Day7
         {
           result += calibrationResult.result;
 
-          equation.printEquation(calibrationResult.result);
+//          equation.printEquation(calibrationResult.result);
           break;
         }
       }

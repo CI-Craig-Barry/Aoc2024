@@ -123,9 +123,9 @@ public class Day10
       }
 
       //Draw trails for fun
-      for (Trail trail : trails)
+      if (debug)
       {
-        if(debug)
+        for (Trail trail : trails)
         {
           trail.drawTrail(this);
         }

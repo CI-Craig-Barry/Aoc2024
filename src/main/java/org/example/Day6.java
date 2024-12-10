@@ -14,10 +14,10 @@ public class Day6
     while(guard.move())
     {
       //Draw the map on every movement for fun
-      map.drawMap(
-        guard.visited,
-        new int[] {guard.posRow, guard.posCol}
-      );
+//      map.drawMap(
+//        guard.visited,
+//        new int[] {guard.posRow, guard.posCol}
+//      );
     }
 
     return guard.numSpacesVisited();
@@ -55,10 +55,10 @@ public class Day6
             if(guard.stuckInLoop)
             {
               //Draw map for fun
-              map.drawMap(
-                guard.visited,
-                new int[] {guard.posRow, guard.posCol}
-              );
+//              map.drawMap(
+//                guard.visited,
+//                new int[] {guard.posRow, guard.posCol}
+//              );
 
               numObstaclePosition += 1;
               break;
