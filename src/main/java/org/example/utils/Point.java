@@ -43,6 +43,12 @@ public class Point
     return Objects.hash(row, col);
   }
 
+  @Override
+  public String toString()
+  {
+    return "[" + col + "," + row + "]";
+  }
+
   public int row;
   public int col;
 }
