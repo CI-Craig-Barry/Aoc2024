@@ -191,10 +191,10 @@ public class Day12
 
       for (Point regionPoint : regionPoints)
       {
-        smallestCol = Math.min(smallestCol, regionPoint.col);
-        highestCol = Math.max(highestCol, regionPoint.col);
-        smallestRow = Math.min(smallestRow, regionPoint.row);
-        highestRow = Math.max(highestRow, regionPoint.row);
+        smallestCol = (int)Math.min(smallestCol, regionPoint.col);
+        highestCol = (int)Math.max(highestCol, regionPoint.col);
+        smallestRow = (int)Math.min(smallestRow, regionPoint.row);
+        highestRow = (int)Math.max(highestRow, regionPoint.row);
       }
 
       bounds.startRow = smallestRow;
@@ -378,7 +378,7 @@ public class Day12
     //Get the character used in this grid point
     public char getFlowerType(Point point)
     {
-      return plants[point.row][point.col];
+      return plants[(int)point.row][(int)point.col];
     }
 
     public long getFenceCost()

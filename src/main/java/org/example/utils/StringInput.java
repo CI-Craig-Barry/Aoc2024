@@ -13,6 +13,7 @@ public class StringInput
   public StringInput(String input)
   {
     this.input = input;
+    this.lines = StringUtils.splitIntoLines(input);
   }
 
   public String asString()
@@ -22,8 +23,9 @@ public class StringInput
 
   public List<String> asLines()
   {
-    return StringUtils.splitIntoLines(input);
+    return lines;
   }
 
   private final String input;
+  private final List<String> lines;
 }

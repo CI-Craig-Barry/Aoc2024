@@ -10,6 +10,17 @@ public class Point
     this.col = col;
   }
 
+  public Point(long row, long col)
+  {
+    this.row = row;
+    this.col = col;
+  }
+
+  public static Point makeXYPoint(long x, long y)
+  {
+    return new Point(y, x);
+  }
+
   public Point add(Vector vector)
   {
     return new Point(
@@ -49,6 +60,16 @@ public class Point
     return "[" + col + "," + row + "]";
   }
 
-  public int row;
-  public int col;
+  public long getX()
+  {
+    return col;
+  }
+
+  public long getY()
+  {
+    return row;
+  }
+
+  public long row;
+  public long col;
 }

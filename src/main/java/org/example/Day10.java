@@ -84,7 +84,7 @@ public class Day10
     //Get height of position
     private int getHeight(Point position)
     {
-      return map[position.row][position.col];
+      return map[(int)position.row][(int)position.col];
     }
 
     //Find all possible moves from a given position that are traversible

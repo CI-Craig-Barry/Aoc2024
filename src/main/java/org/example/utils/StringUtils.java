@@ -82,12 +82,14 @@ public class StringUtils
   //and skips past the delimiters so I can be lazy
   public static Object[] findVariables(String patternString, String input)
   {
-    Pattern pattern = patternCache.get(patternString);
-    List<Class<?>> captureGroups = new ArrayList<>();
+    var cache = patternCache.get(patternString);
+    Pattern pattern;
+    List<Class<?>> captureGroups;
 
-    if(pattern == null)
+    if(cache == null)
     {
       StringBuilder regex = new StringBuilder();
+      captureGroups = new ArrayList<>();
 
       boolean lastCharPattern = false;
 
@@ -98,7 +100,7 @@ public class StringUtils
           if(c == 'd')
           {
             //Find possible '-', followed by any number of digits
-            regex.append("(\\-?\\d+)");
+            regex.append("([-+]?\\d+)");
             captureGroups.add(Integer.class);
           }
           else if(c == 's')
@@ -131,11 +133,14 @@ public class StringUtils
       }
 
       pattern = Pattern.compile(regex.toString());
-      patternCache.put(patternString, pattern);
+      patternCache.put(patternString, new Pair<>(pattern, captureGroups));
+      cache = patternCache.get(patternString);
     }
 
+    pattern = cache.getFirst();
+    captureGroups = cache.getSecond();
     Matcher matcher = pattern.matcher(input);
-    if(matcher.find() && matcher.groupCount() == captureGroups.size())
+    if(matcher.matches() && matcher.groupCount() == captureGroups.size())
     {
         List<Object> results = new ArrayList<>();
 
@@ -146,7 +151,7 @@ public class StringUtils
           Class<?> cls = captureGroups.get(i);
           if(cls.equals(Integer.class))
           {
-            results.add(Integer.parseInt(groupCapture));
+            results.add(Long.parseLong(groupCapture));
           }
           else if(cls.equals(String.class))
           {
@@ -179,7 +184,7 @@ public class StringUtils
     return results;
   }
 
-  private static final Map<String, Pattern> patternCache = new HashMap<>();
+  private static final Map<String, Pair<Pattern, List<Class<?>>>> patternCache = new HashMap<>();
   private final static Set<Character> REGEX_CONTROL_CHARS;
 
   static

@@ -8,6 +8,16 @@ public class Vector
     super(row, col);
   }
 
+  public Vector(long row, long col)
+  {
+    super(row, col);
+  }
+
+  public static Vector makeXYvector(long x, long y)
+  {
+    return new Vector(y, x);
+  }
+
   public static Vector subtract(Point p1, Point p2)
   {
     return new Vector(
@@ -16,10 +26,18 @@ public class Vector
     );
   }
 
+  public static Vector scale(Vector vec, int scale)
+  {
+    return new Vector(
+      vec.row * scale,
+      vec.col * scale
+    );
+  }
+
   public void rotateClockwise()
   {
-    int curColDirection = col;
-    int curRowDirection = row;
+    long curColDirection = col;
+    long curRowDirection = row;
 
     //2d vector clockwise rotation
     this.row = curColDirection;
@@ -28,8 +46,8 @@ public class Vector
 
   public void rotateCounterClockwise()
   {
-    int curColDirection = col;
-    int curRowDirection = row;
+    long curColDirection = col;
+    long curRowDirection = row;
 
     //2d vector counter-clockwise rotation
     this.row = -curColDirection;
