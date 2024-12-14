@@ -70,6 +70,22 @@ public class Point
     return row;
   }
 
+  public void setX(long x)
+  {
+    this.col = x;
+  }
+
+  public void setY(long y)
+  {
+    this.row = y;
+  }
+
+  public void setXYPos(long x, long y)
+  {
+    setX(x);
+    setY(y);
+  }
+
   public long row;
   public long col;
 }
