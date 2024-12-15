@@ -47,18 +47,18 @@ public class Day14
   {
     Day14.debug = debug;
 
-    //Print system output to file for easier manual checking
-    File sysoutLog = new File("day14.log");
-    PrintStream ps = null;
-    try
-    {
-      ps = new PrintStream(new FileOutputStream(sysoutLog));
-    }
-    catch (FileNotFoundException e)
-    {
-      throw new RuntimeException(e);
-    }
-    System.setOut(ps);
+//    //Print system output to file for easier manual checking
+//    File sysoutLog = new File("day14.log");
+//    PrintStream ps = null;
+//    try
+//    {
+//      ps = new PrintStream(new FileOutputStream(sysoutLog));
+//    }
+//    catch (FileNotFoundException e)
+//    {
+//      throw new RuntimeException(e);
+//    }
+//    System.setOut(ps);
 
     //Make map & parse robots
     BathroomMap map = new BathroomMap(spaceWidth, spaceHeight);
@@ -86,23 +86,23 @@ public class Day14
       int[][] robotCountMap = map.buildCountMap(robots);
       int fullySurroundedPts = countFullySurrounded(robotCountMap, robots);
 
-//      //This check will work but is kind of cheese, it is how I got the answer initially
-//      if(countsHasOnlyOnes(robotCountMap))
-//      {
+      //This check will work but is kind of cheese, it is how I got the answer initially
+      if(countsHasOnlyOnes(robotCountMap))
+      {
 //        System.out.println("*** Found christmas ***");
 //        map.drawMap(robots);
 //        System.out.println();
-//        return i;
-//      }
+        return i;
+      }
 
       //Feels less cheese, but it also only really makes sense once you know what the output looks like.
       //But is not an unreasonable estimate
       if(maxFullySurroundedPts < fullySurroundedPts)
       {
-        System.err.println("*** Iteration: " + i + ", Highest number of fully surrounded points: " + fullySurroundedPts + " ***");
-        System.out.println("*** Iteration: " + i + ", Highest number of fully surrounded points: " + fullySurroundedPts + " ***");
-        map.drawMap(robots);
-        System.out.println();
+//        System.err.println("*** Iteration: " + i + ", Highest number of fully surrounded points: " + fullySurroundedPts + " ***");
+//        System.out.println("*** Iteration: " + i + ", Highest number of fully surrounded points: " + fullySurroundedPts + " ***");
+//        map.drawMap(robots);
+//        System.out.println();
 
         maxFullySurroundedIdx = i;
         maxFullySurroundedPts = fullySurroundedPts;

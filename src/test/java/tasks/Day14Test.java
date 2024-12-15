@@ -61,7 +61,7 @@ p=9,5 v=-3,-3
     for(int i = 0; i < 100; i++)
     {
       tester.startTiming();
-      Assertions.assertEquals(0L, Day14.task2(input, 101, 103,false));
+      Assertions.assertEquals(6512L, Day14.task2(input, 101, 103,false));
       tester.stopTiming();
     }
 

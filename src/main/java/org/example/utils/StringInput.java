@@ -4,7 +4,7 @@
 
 package org.example.utils;
 
-import java.util.List;
+import java.util.*;
 
 //Helpful wrapper for passing test input into a task without worrying
 //if we need to process it by line or as a whole
@@ -24,6 +24,30 @@ public class StringInput
   public List<String> asLines()
   {
     return lines;
+  }
+
+  public List<StringInput> splitAtEmptyLine()
+  {
+    List<StringInput> inputs = new ArrayList<>();
+    StringBuilder builder = new StringBuilder();
+
+    for (String line : asLines())
+    {
+      if(!line.isEmpty())
+      {
+        builder.append(line);
+        builder.append("\n");
+      }
+      else
+      {
+        inputs.add(new StringInput(builder.toString()));
+        builder = new StringBuilder();
+      }
+    }
+
+    inputs.add(new StringInput(builder.toString()));
+
+    return inputs;
   }
 
   private final String input;
