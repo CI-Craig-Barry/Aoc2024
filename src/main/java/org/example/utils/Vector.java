@@ -1,5 +1,8 @@
 package org.example.utils;
 
+import java.util.*;
+import java.util.spi.CalendarNameProvider;
+
 public class Vector
   extends Point
 {
@@ -34,24 +37,28 @@ public class Vector
     );
   }
 
-  public void rotateClockwise()
+  public static long manhattanDistance(Point p1, Point p2)
   {
-    long curColDirection = col;
-    long curRowDirection = row;
-
-    //2d vector clockwise rotation
-    this.row = curColDirection;
-    this.col = -curRowDirection;
+    Vector diff = Vector.subtract(p1, p2);
+    return Math.abs(diff.row) + Math.abs(diff.col);
   }
 
-  public void rotateCounterClockwise()
+  public Vector rotateClockwise()
   {
-    long curColDirection = col;
-    long curRowDirection = row;
+    //2d vector clockwise rotation
+    return new Vector(
+      col,
+      -row
+    );
+  }
 
+  public Vector rotateCounterClockwise()
+  {
     //2d vector counter-clockwise rotation
-    this.row = -curColDirection;
-    this.col = curRowDirection;
+    return new Vector(
+      -col,
+      row
+    );
   }
 
   public void reverse()
@@ -59,4 +66,20 @@ public class Vector
     this.row = -this.row;
     this.col = -this.col;
   }
+
+  public static final Vector EAST = Vector.makeXYvector(1, 0);
+  public static final Vector WEST = Vector.makeXYvector(-1, 0);
+  public static final Vector NORTH = Vector.makeXYvector(0, -1);
+  public static final Vector SOUTH = Vector.makeXYvector(0, 1);
+  public static final List<Vector> CARDINAL_DIRECTIONS;
+
+  static
+  {
+    CARDINAL_DIRECTIONS = List.of(
+      EAST,
+      WEST,
+      NORTH,
+      SOUTH
+    );
+  };
 }
