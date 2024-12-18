@@ -1,7 +1,6 @@
 package org.example.utils;
 
 import java.util.*;
-import java.util.spi.CalendarNameProvider;
 
 public class Vector
   extends Point
@@ -61,17 +60,23 @@ public class Vector
     );
   }
 
-  public void reverse()
+  public Vector reverse()
   {
-    this.row = -this.row;
-    this.col = -this.col;
+    return new Vector(-row, -col);
   }
 
   public static final Vector EAST = Vector.makeXYvector(1, 0);
   public static final Vector WEST = Vector.makeXYvector(-1, 0);
   public static final Vector NORTH = Vector.makeXYvector(0, -1);
   public static final Vector SOUTH = Vector.makeXYvector(0, 1);
+
+  public static final Vector NORTH_EAST = Vector.makeXYvector(1, -1);
+  public static final Vector NORTH_WEST = Vector.makeXYvector(-1, -1);
+  public static final Vector SOUTH_EAST = Vector.makeXYvector(1, 1);
+  public static final Vector SOUTH_WEST = Vector.makeXYvector(-1, 1);
+
   public static final List<Vector> CARDINAL_DIRECTIONS;
+  public static final List<Vector> EIGHT_CARDINAL_DIRECTIONS;
 
   static
   {
@@ -80,6 +85,17 @@ public class Vector
       WEST,
       NORTH,
       SOUTH
+    );
+
+    EIGHT_CARDINAL_DIRECTIONS = List.of(
+      EAST,
+      NORTH_EAST,
+      NORTH,
+      NORTH_WEST,
+      WEST,
+      SOUTH_WEST,
+      SOUTH,
+      SOUTH_EAST
     );
   };
 }

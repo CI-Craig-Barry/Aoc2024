@@ -37,29 +37,6 @@ public class Point
     );
   }
 
-  @Override
-  public boolean equals(Object o)
-  {
-    if (o == null || getClass() != o.getClass())
-    {
-      return false;
-    }
-    Point point = (Point) o;
-    return row == point.row && col == point.col;
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return Objects.hash(row, col);
-  }
-
-  @Override
-  public String toString()
-  {
-    return "[" + col + "," + row + "]";
-  }
-
   public long getX()
   {
     return col;
@@ -80,10 +57,33 @@ public class Point
     this.row = y;
   }
 
-  public void setXYPos(long x, long y)
+  public void setXY(long x, long y)
   {
     setX(x);
     setY(y);
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
+    Point point = (Point) o;
+    return row == point.row && col == point.col;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(row, col);
+  }
+
+  @Override
+  public String toString()
+  {
+    return "[x:" + col + ", y:" + row + "]";
   }
 
   public long row;

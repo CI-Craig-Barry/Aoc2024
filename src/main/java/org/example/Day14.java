@@ -3,7 +3,6 @@ package org.example;
 import org.example.utils.*;
 import org.example.utils.Vector;
 
-import java.io.*;
 import java.util.*;
 
 public class Day14
@@ -332,7 +331,7 @@ public class Day14
         y = map.height + y;
       }
 
-      position.setXYPos(x, y);
+      position.setXY(x, y);
     }
 
     private Point initPosition;
