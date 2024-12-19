@@ -44,23 +44,6 @@ public class Day18Test
   @Test
   public void part1Test1()
   {
-//    OO,#,,,
-//    ,O#OOO,
-//    ,OOO#O,
-//    ,,,#OO#
-//    ,,#OO#,
-//    ,#,O#,,
-//    #,#OOOO
-
-//    OO.#OOO
-//    .O#OO#O
-//    .OOO#OO
-//    ...#OO#
-//    ..#OO#.
-//    .#.O#..
-//    #.#OOOO
-
-
     Assertions.assertEquals(22L, Day18.task1(TEST_INPUT_1, 7, 12, true));
   }
 
@@ -91,7 +74,7 @@ public class Day18Test
   {
     StringInput input = FileUtils.getFileContents("/day18_task.txt");
     PerformanceTester tester = new PerformanceTester();
-    for(int i = 0; i < 10_000; i++)
+    for(int i = 0; i < 10; i++)
     {
       tester.startTiming();
       Assertions.assertEquals("15,20", Day18.task2(input, 71, false));

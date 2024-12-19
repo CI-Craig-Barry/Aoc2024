@@ -51,17 +51,21 @@ public class Day18
       if(result.getKey().isEmpty())
       {
         String addedCoord = input.asLines().get(i-1);
-        System.out.println("Found no solution adding " + addedCoord + " at n points: " + i);
-        memory.draw(Set.of());
-        System.out.println("*** End Map***");
-        System.out.println();
 
-        System.out.println("*** Previous Map***");
-        MemorySpace prevMemory = parseMemorySpace(input, gridSize, i - 1);
-        var path = astar(prevMemory);
-        prevMemory.draw(Set.of());
-        System.out.println("*** End Map ***");
-        System.out.println();
+        if(debug)
+        {
+          System.out.println("Found no solution adding " + addedCoord + " at n points: " + i);
+          memory.draw(Set.of());
+          System.out.println("*** End Map***");
+          System.out.println();
+
+          System.out.println("*** Previous Map***");
+          MemorySpace prevMemory = parseMemorySpace(input, gridSize, i - 1);
+          var path = astar(prevMemory);
+          prevMemory.draw(Set.of());
+          System.out.println("*** End Map ***");
+          System.out.println();
+        }
 
         return addedCoord;
       }
