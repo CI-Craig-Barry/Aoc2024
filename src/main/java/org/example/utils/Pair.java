@@ -58,6 +58,28 @@ public class Pair<K, V>
     return value;
   }
 
+  @Override
+  public boolean equals(Object o)
+  {
+    if (!(o instanceof Pair<?, ?> pair))
+    {
+      return false;
+    }
+    return Objects.equals(key, pair.key) && Objects.equals(value, pair.value);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return Objects.hash(key, value);
+  }
+
+  @Override
+  public String toString()
+  {
+    return "[" + key + ", " + value + "]";
+  }
+
   private final K key;
   private V value;
 }

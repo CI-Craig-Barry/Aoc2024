@@ -10,7 +10,6 @@ import java.util.*;
 
 public class Day19
 {
-
   public static boolean debug;
 
   public static long task1(StringInput input, boolean debug)
