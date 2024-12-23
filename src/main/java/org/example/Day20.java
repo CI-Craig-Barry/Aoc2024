@@ -2,7 +2,6 @@ package org.example;
 
 import org.example.utils.*;
 import org.example.utils.Vector;
-import org.w3c.dom.html.HTMLHeadElement;
 
 import java.util.*;
 import java.util.stream.Collectors;
