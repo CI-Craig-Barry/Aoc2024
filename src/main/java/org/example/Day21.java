@@ -20,7 +20,7 @@ public class Day21
     for (String line : input.asLines())
     {
       long cost = calculateCost(line, iterations);
-      System.out.println(input + ": " + cost);
+      System.out.println(line + ": " + cost);
       total += cost;
     }
 
