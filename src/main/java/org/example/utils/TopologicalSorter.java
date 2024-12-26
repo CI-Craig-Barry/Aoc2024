@@ -43,11 +43,11 @@ public class TopologicalSorter
   }
 
   private static <T extends TopologicalSortable> void topologicalSortRecursive(
-    int vIndex,
-    boolean visited[],
-    final List<T> vertices,
-    Stack<T> sorted,
-    final Map<T, Integer> itemIdxMap
+    int vIndex, //Vertex index
+    boolean[] visited, // Whether vertex has been visited
+    final List<T> vertices, //Vertex array, polled by vertex index
+    Stack<T> sorted, //Sorted vertices
+    final Map<T, Integer> itemIdxMap //Map of item index to map
   )
   {
     //Mark the current node as visited.
@@ -78,4 +78,56 @@ public class TopologicalSorter
     //Push current vertex to sorted which stores result
     sorted.push(item);
   }
+
+  public static boolean isCyclic(List<? extends TopologicalSortable> elements) {
+    Set<TopologicalSortable> visited = new HashSet<>();
+    Map<TopologicalSortable, Boolean> recStack = new HashMap<>();
+    elements.forEach(elem -> recStack.put(elem, false));
+
+    for (TopologicalSortable element : elements)
+    {
+      if(!visited.contains(element) && isCyclicRecur(element, visited, recStack))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public static boolean isCyclicRecur(
+    TopologicalSortable elem,
+    Set<TopologicalSortable> visited,
+    Map<TopologicalSortable, Boolean> recStack
+  )
+  {
+    if (!visited.contains(elem))
+    {
+      //Mark visited & in the stack
+      visited.add(elem);
+      recStack.put(elem, true);
+
+      //Search all the neighbours
+      for (TopologicalSortable dependency : elem.getDependencies())
+      {
+        //Identified a back edge of a neighbour
+        if(!visited.contains(dependency) &&
+          isCyclicRecur(dependency, visited, recStack))
+        {
+          return true;
+        }
+        //Identified a back edge
+        else if (recStack.get(dependency))
+        {
+          return true;
+        }
+      }
+    }
+
+    //Pull out of stack
+    recStack.put(elem, false);
+    return false;
+  }
+
+
 }

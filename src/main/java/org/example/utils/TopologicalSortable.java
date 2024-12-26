@@ -25,6 +25,11 @@ public class TopologicalSortable
     return dependencies.stream().map(TopologicalSortable::getItem).collect(Collectors.toSet());
   }
 
+  public void clearDependencies()
+  {
+    dependencies.clear();
+  }
+
   public void addDependency(TopologicalSortable dependency)
   {
     this.dependencies.add(dependency);
